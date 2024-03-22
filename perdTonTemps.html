@@ -3,10 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <title>Titre de la page</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="script.js"></script>
   </head>
   <body>
-    zizi
+    <header class="ApiHeader">
+      <button id="accueil_btn">Accueil</button>
+    </header>
+
+    <main class="ApiMain">
+      <div id="recherche_div">
+        <div class="recherche_sous_div">
+          <label for="temps_input">Combien de temps vous voulez perdre ?</label>
+          <input type="text" id="recherche_temps_input" name="temps_input"/>
+        </div>
+        <div class="recherche_sous_div">
+          <label for="chaines_input">Avez-vous une préférence sur les chaînes à voir ?</label>
+          <input type="text" id="recherche_chaines_input" name="chaines_input"/>
+        </div>
+        <button id="recherche_btn">Rechercher</button>
+      </div>
+    </main>
   </body>
 </html>
+
+<!-- Inclusions des scripts JS -->
+<script src="js/main.js"></script>
+<script src="js/view.js"></script>
