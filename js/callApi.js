@@ -1,4 +1,6 @@
 const axios = require("axios");
+const express = require("express");
+const { url } = require("inspector");
 
 const CLIENT_ID = "umzjha43644any1oau4komgf4r6ppw";
 const CLIENT_SECRET = "la906lqfu37qwevq0w784bdqjfxsg1";
@@ -73,7 +75,8 @@ async function getClipInfo(clipId, accessToken) {
         },
       }
     );
-    console.log(response.data.data[0]); // Affiche les informations du clip
+    url = response["url"];
+    return url;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des informations du clip:",
