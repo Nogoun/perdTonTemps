@@ -1,13 +1,9 @@
 /**
  * Objet constant représentant la vue.
  */
-const view= {
+const view = {
     rechercheBtn : document.getElementById("recherche_btn"),
     rechercheDiv : document.getElementById("recherche_div"),
-
     resultatDiv : document.getElementById("resultat_div"),
-
-    accueilBtn : document.getElementById("accueil_btn"),
-    
-    
 };
+

@@ -11,7 +11,8 @@
     </header>
 
     <main class="ApiMain">
-      <div id="recherche_div">
+
+      <div id="recherche_div" class="div">
         <div class="recherche_sous_div">
           <label for="temps_input">Combien de temps vous voulez perdre ?</label>
           <input type="text" id="recherche_temps_input" name="temps_input"/>
@@ -22,10 +23,18 @@
         </div>
         <button id="recherche_btn">Rechercher</button>
       </div>
+
+      <div id="resultat_div" class="div hide">
+        <div class="recherche_sous_div">
+          <label for="temps_input">Combien de temps vous voulez perdre ?</label>
+          <input type="text" id="recherche_temps_input" name="temps_input"/>
+        </div>
+      </div> 
     </main>
   </body>
 </html>
 
 <!-- Inclusions des scripts JS -->
-<script src="js/controller.js"></script>
 <script src="js/view.js"></script>
+<script src="js/controller.js"></script>
+

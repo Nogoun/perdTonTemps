@@ -28,7 +28,7 @@ html {
     color: rgb(150, 47, 247);
 }
 
-#recherche_div{
+.div{
     background-color: #252525;
     color: white;
     position: absolute;
@@ -61,4 +61,8 @@ html {
 
 #recherche_btn:hover{
     background-color: #151515;
+}
+
+.hide{
+    visibility: hidden;
 }
