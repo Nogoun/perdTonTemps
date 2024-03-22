@@ -76,7 +76,9 @@ async function getClipInfo(clipId, accessToken) {
       }
     );
     url = response["url"];
-    return url;
+    duree = response["duration"];
+    info = [url, duree];
+    return info;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des informations du clip:",
