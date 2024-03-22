@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clip Twitch</title>
+  </head>
+  <body>
+    <div id="clip-container"></div>
+
+    <script>
+      // Supposons que vous ayez l'URL du clip dans une variable `clipUrl`
+      const clipUrl = "URL_du_clip_obtenu_via_l_API";
+      const clipContainer = document.getElementById("clip-container");
+      clipContainer.innerHTML = `<iframe src="${clipUrl}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`;
+    </script>
+  </body>
+</html>
