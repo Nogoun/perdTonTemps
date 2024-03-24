@@ -5,7 +5,7 @@
     <title>Titre de la page</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
+  <body id = "bodyApi">
     <header class="ApiHeader">
       <button id="accueil_btn">Accueil</button>
     </header>
@@ -31,10 +31,18 @@
       </div>
 
       <div id="resultat_div" class="div hide">
-        <div class="resultat_sous_div">
-          <label for="temps_input">Combien de temps vous voulez perdre ?</label>
-          <input type="text" id="resultat_temps_input" name="temps_input"/>
-        </div>
+        <table id="resultat_table">
+          <caption>Resultat de la recherche des clips</caption>
+          <thead>
+            <tr>
+              <th scope="col">URL</th>
+              <th scope="col">Durée (en secondes)</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
       </div> 
     </main>
   </body>
