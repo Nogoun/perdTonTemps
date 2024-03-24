@@ -15,7 +15,13 @@
       <div id="recherche_div" class="div">
         <div class="recherche_sous_div">
           <label for="temps_input">Combien de temps vous voulez perdre ?</label>
-          <input type="text" id="recherche_temps_input" name="temps_input"/>
+          <select name="temps" id="recherche_temps_select">
+            <option value="">-- Choisissez combien de temps vous voulez perdre --</option>
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
         </div>
         <div class="recherche_sous_div">
           <label for="chaines_input">Avez-vous une préférence sur les chaînes à voir ?</label>
@@ -25,9 +31,9 @@
       </div>
 
       <div id="resultat_div" class="div hide">
-        <div class="recherche_sous_div">
+        <div class="resultat_sous_div">
           <label for="temps_input">Combien de temps vous voulez perdre ?</label>
-          <input type="text" id="recherche_temps_input" name="temps_input"/>
+          <input type="text" id="resultat_temps_input" name="temps_input"/>
         </div>
       </div> 
     </main>
@@ -35,6 +41,7 @@
 </html>
 
 <!-- Inclusions des scripts JS -->
+<script src="js/callApi.js"></script>
 <script src="js/view.js"></script>
 <script src="js/controller.js"></script>
 
