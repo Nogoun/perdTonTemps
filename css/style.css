@@ -66,3 +66,8 @@ html {
 .hide{
     visibility: hidden;
 }
+
+#resultat_table {
+    top: 1em;
+    position: relative;
+}

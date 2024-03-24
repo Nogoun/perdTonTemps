@@ -6,5 +6,4 @@ const view = {
     recherchaines : document.getElementById("recherche_chaines_input"),
     resultatDiv : document.getElementById("resultat_div"),
     resultatTable : document.getElementById("resultat_table"),
-    body : document.getElementById("bodyApi")
 };
