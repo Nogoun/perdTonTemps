@@ -75,8 +75,8 @@ async function getClipInfo(clipId, accessToken) {
         },
       }
     );
-    url = response["url"];
-    duree = response["duration"];
+    url = response.data.data[0].url;
+    duree = response.data.data[0].duration;
     info = [url, duree];
     return info;
   } catch (error) {
