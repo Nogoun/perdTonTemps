@@ -5,3 +5,4 @@ const view = {
     rechercheDiv : document.getElementById("recherche_div"),
     resultatDiv : document.getElementById("resultat_div"),
 };
+

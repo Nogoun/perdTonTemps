@@ -1,6 +1,6 @@
+async function main(userName){
 const CLIENT_ID = "umzjha43644any1oau4komgf4r6ppw";
 const CLIENT_SECRET = "la906lqfu37qwevq0w784bdqjfxsg1";
-const userName = "Etoiles"; // Le nom d'utilisateur Twitch pour lequel vous souhaitez récupérer l'ID
 
 // Fonction pour obtenir un token d'accès
 async function getAccessToken() {
@@ -124,3 +124,4 @@ async function main() {
 }
 
 main();
+}
