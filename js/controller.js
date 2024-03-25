@@ -1,14 +1,16 @@
 // ### Gestion du bouton de recherche ###
-view.rechercheBtn.addEventListener("click" , async function() {
+view.rechercheBtn.addEventListener("click", async function () {
+    document.getElementById("spinner").classList.remove("hide");
+    document.getElementById("spinner").classList.add("spinner"); // Assurez-vous d'ajouter la classe spinner
     view.msgAttente.classList.remove("hide"); // On affiche un message d'attente pour l'utilisateur
-    view.resultatTable.innerHTML = "";  // On met à 0 la table à chaque nouvelles recherche
+    view.resultatTable.innerHTML = ""; // On met à 0 la table à chaque nouvelles recherche
 
     // Analyse et traitement de la ou les chaînes transmises
     const chainesSouhaitees = view.recherchaines.value; // Correspond aux chaînes saisi par l'utilisateur
-    let nbClipsSouhaite = view.rechercheClipsSelect.value;  // Correspond au nombre de clips que l'utilisateur souhaite voir
+    let nbClipsSouhaite = view.rechercheClipsSelect.value; // Correspond au nombre de clips que l'utilisateur souhaite voir
     let tempsPerdu = 0; // Compteur pour déterminer le temps perdu par l'utilisateur
 
-    if (!nbClipsSouhaite){
+    if (!nbClipsSouhaite) {
         nbClipsSouhaite = 15; // Si l'utilisateur ne choisis pas de nombre de clips par défaut ce sera 15 clips twitch.
     }
 
@@ -66,16 +68,13 @@ view.rechercheBtn.addEventListener("click" , async function() {
         }
         
     }
-    view.rechercheDiv.classList.add("hide");
-    view.resultatDiv.classList.remove("hide");
 
-        
 
     //Affichage du temps total perdu
-    let tcorps = view.resultatTable; 
+    let tcorps = view.resultatTable;
     //Création de la ligne du tableau
     let ligne = document.createElement("tr");
-                    
+
     //Création de la première colonne avec un texte
     let celluleTexte = document.createElement("td");
     let texte = document.createElement("p");
@@ -84,7 +83,7 @@ view.rechercheBtn.addEventListener("click" , async function() {
 
     //Création de la deuxième colonne avec la durée totale des clips
     let celluleDuree = document.createElement("td");
-    celluleDuree.textContent = Math.trunc(tempsPerdu/60) + " minutes";
+    celluleDuree.textContent = Math.trunc(tempsPerdu / 60) + " minutes";
 
     //Ajout des deux cellules à la ligne
     ligne.appendChild(celluleTexte);
@@ -93,6 +92,12 @@ view.rechercheBtn.addEventListener("click" , async function() {
 
     //Ajout de la ligne au tableau.
     tcorps.appendChild(ligne);
+    // Une fois la recherche terminée, cache le spinner
+    document.getElementById("spinner").classList.add("hide");
+    document.getElementById("spinner").classList.remove("spinner"); // Retire la classe spinner pour arrêter l'animation
+
+    view.rechercheDiv.classList.add("hide");
+    view.resultatDiv.classList.remove("hide");
 });
 
 

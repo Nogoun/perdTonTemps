@@ -5,19 +5,20 @@
     <title>Titre de la page</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body id = "bodyApi">
+  <body id="bodyApi">
     <header class="ApiHeader">
       <button id="accueil_btn" class="btn">Accueil</button>
       <button id="favoris_btn" class="btn">Mes clips favoris</button>
     </header>
 
     <main class="ApiMain">
-
       <div id="recherche_div" class="div">
         <div class="recherche_sous_div">
           <label for="temps_input">Combien de temps vous voulez perdre ?</label>
           <select name="temps" id="recherche_temps_select">
-            <option value="">-- Choisissez combien de clips vous voulez voir --</option>
+            <option value="">
+              -- Choisissez combien de clips vous voulez voir --
+            </option>
             <option value="15">15 clips</option>
             <option value="30">30 clips</option>
             <option value="45">45 clips</option>
@@ -25,25 +26,33 @@
           </select>
         </div>
         <div class="recherche_sous_div">
-          <label for="chaines_input">Avez-vous une préférence sur les chaînes à voir ?</label>
-          <input type="text" id="recherche_chaines_input" name="chaines_input" placeholder="Ex: Gotaga,Etoiles,..."/>
+          <label for="chaines_input"
+            >Avez-vous une préférence sur les chaînes à voir ?</label
+          >
+          <input
+            type="text"
+            id="recherche_chaines_input"
+            name="chaines_input"
+            placeholder="Ex: Gotaga,Etoiles,..."
+          />
         </div>
         <button id="recherche_btn">Rechercher</button>
         <p id="message_attente" class="hide">Veuillez patienter !!!</p>
+        <div id="spinner" class="hide"></div>
       </div>
 
       <div id="resultat_div" class="div hide">
         <table id="resultat_table">
-          <caption>Resultat de la recherche des clips</caption>
+          <caption>
+            Resultat de la recherche des clips
+          </caption>
           <thead>
             <tr>
               <th scope="col">URL</th>
               <th scope="col">Durée (en secondes)</th>
             </tr>
           </thead>
-          <tbody id="resultat_clips">
-
-          </tbody>
+          <tbody id="resultat_clips"></tbody>
         </table>
       </div> 
 
@@ -59,4 +68,3 @@
 <script src="js/view.js"></script>
 <script src="js/controller.js"></script>
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-
