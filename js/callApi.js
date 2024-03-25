@@ -49,9 +49,9 @@
   }
 
   // Fonction pour obtenir les ID de plusieurs clips
-  async function getClipIds(broadcasterId, accessToken) {
+  async function getClipIds(broadcasterId, accessToken , nbClips)  {
     try {
-      const response = await fetch(`https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=10`, { // Récupère jusqu'à 100 clips
+      const response = await fetch(`https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=${nbClips}`, { // Récupère jusqu'à 100 clips
         headers: {
           "Client-ID": CLIENT_ID,
           Authorization: `Bearer ${accessToken}`,
@@ -90,7 +90,7 @@
         const data = await response.json();
         const clip = data.data[0];
         if (clip) {
-          clipsInfo.push({ url: clip.url, duration: clip.duration });
+          clipsInfo.push({ url: clip.url, duration: clip.duration , title: clip.title});
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des informations des clips:", error);

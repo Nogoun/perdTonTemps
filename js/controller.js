@@ -1,38 +1,211 @@
 // ### Gestion du bouton de recherche ###
 view.rechercheBtn.addEventListener("click" , async function() {
-    const pseudoTwitch = document.getElementById('pseudoTwitch').value; // Récupère le pseudo entré
-    let accessToken = await getAccessToken();
-    let userId = await getUserId(pseudoTwitch , accessToken); // Utilise le pseudo entré
-    let clipIds = await getClipIds(userId , accessToken);
-    let clipsInfo = await getClipsInfo(clipIds , accessToken);
+    const chainesSouhaitees = view.recherchaines.value;
+    console.log(view.rechercheClipsSelect.value === "");
+    let nbClipsSouhaite = view.rechercheClipsSelect.value;
+    let tempsPerdu = 0;
 
-    let tcorps = document.getElementById("resultat_clips"); // Assurez-vous que cet ID correspond à votre <tbody>
-    tcorps.innerHTML = ''; // Efface les résultats précédents avant d'afficher les nouveaux
-
-    for (let clipInfo of clipsInfo){
-        //Création de la ligne du tableau
-        let ligne = document.createElement("tr");
-        
-        //Création de la première colonne avec un lien
-        let celluleLien = document.createElement("td");
-        let lien = document.createElement("a");
-        lien.href = clipInfo.url;
-        lien.textContent = clipInfo.url;
-        lien.target = "_blank"; // Ouvre le lien dans un nouvel onglet
-        celluleLien.appendChild(lien);
-
-        //Création de la deuxième colonne avec la durée de la vidéo
-        let celluleDuree = document.createElement("td");
-        celluleDuree.textContent = clipInfo.duration + " secondes";
-
-        //Ajout des deux cellules à la ligne
-        ligne.appendChild(celluleLien);
-        ligne.appendChild(celluleDuree);
-
-        //Ajout de la ligne au tableau.
-        tcorps.appendChild(ligne);
+    if (!nbClipsSouhaite){
+        nbClipsSouhaite = 15;
     }
 
-    view.rechercheDiv.classList.add("hide");
-    view.resultatDiv.classList.remove("hide");
-})
+    if (chainesSouhaitees != ""){
+        const chaines = chainesSouhaitees.split(","); // Sépare les chaînes par des virgules
+        console.log(chaines);
+
+        let accessToken = await getAccessToken();
+
+        for (let chaine  of chaines){
+            // Mémorisation de la chaîne pour ne pas refaire les mêmes requetes
+            let memoryString = chaine+nbClipsSouhaite;
+            console.log(memoryString);
+
+            if (localStorage.getItem(memoryString) != null){
+                let clipsInfo = JSON.parse(localStorage.getItem(memoryString));
+                let tcorps = view.resultatTable;
+
+                for (let clipInfo of clipsInfo){
+                    //Création de la ligne du tableau
+                    let ligne = document.createElement("tr");
+                    
+                    //Création de la première colonne avec un lien
+                    let celluleLien = document.createElement("td");
+                    let lien = document.createElement("a");
+                    lien.href = clipInfo.url;
+                    lien.textContent = clipInfo.title;
+                    lien.target = "_blank"; // Ouvre le lien dans un nouvel onglet
+                    celluleLien.appendChild(lien);
+
+                    //Création de la deuxième colonne avec la durée de la vidéo
+                    let celluleDuree = document.createElement("td");
+                    celluleDuree.textContent = clipInfo.duration + " secondes";
+
+                    //Ajout des deux cellules à la ligne
+                    ligne.appendChild(celluleLien);
+                    ligne.appendChild(celluleDuree);
+
+                    //Ajout de la ligne au tableau.
+                    tcorps.appendChild(ligne);
+                    console.log("fin de la boucle chaine");
+
+                    //Mise à jour de la  valeur du temps 
+                    tempsPerdu += clipInfo.duration;
+                }
+            }else {
+                let userId = await getUserId(chaine , accessToken); // Utilise le pseudo entré
+                let clipIds = await getClipIds(userId , accessToken , nbClipsSouhaite);
+                let clipsInfo = await getClipsInfo(clipIds , accessToken);
+    
+                let tcorps = view.resultatTable;
+    
+                for (let clipInfo of clipsInfo){
+                    //Création de la ligne du tableau
+                    let ligne = document.createElement("tr");
+                    
+                    //Création de la première colonne avec un lien
+                    let celluleLien = document.createElement("td");
+                    let lien = document.createElement("a");
+                    lien.href = clipInfo.url;
+                    lien.textContent = clipInfo.title;
+                    lien.target = "_blank"; // Ouvre le lien dans un nouvel onglet
+                    celluleLien.appendChild(lien);
+    
+                    //Création de la deuxième colonne avec la durée de la vidéo
+                    let celluleDuree = document.createElement("td");
+                    celluleDuree.textContent = clipInfo.duration + " secondes";
+    
+                    //Ajout des deux cellules à la ligne
+                    ligne.appendChild(celluleLien);
+                    ligne.appendChild(celluleDuree);
+    
+                    //Ajout de la ligne au tableau.
+                    tcorps.appendChild(ligne);
+                    console.log("fin de la boucle chaine");
+
+                    //Mise à jour de la  valeur du temps 
+                    tempsPerdu += clipInfo.duration;
+                }
+                localStorage.setItem(memoryString , JSON.stringify(clipsInfo));
+            }
+
+            
+            
+        }
+        view.rechercheDiv.classList.add("hide");
+        view.resultatDiv.classList.remove("hide");
+    }else {
+        const chaines = ["Mastu","gotaga"];
+        console.log(chaines);
+
+        let accessToken = await getAccessToken();
+
+        for (let chaine  of chaines){
+            // Mémorisation de la chaîne pour ne pas refaire les mêmes requetes
+            let memoryString = chaine+nbClipsSouhaite;
+            console.log(memoryString);
+
+            if (localStorage.getItem(memoryString) != null){
+                let clipsInfo = JSON.parse(localStorage.getItem(memoryString));
+                let tcorps = view.resultatTable;
+
+                for (let clipInfo of clipsInfo){
+                    //Création de la ligne du tableau
+                    let ligne = document.createElement("tr");
+                    
+                    //Création de la première colonne avec un lien
+                    let celluleLien = document.createElement("td");
+                    let lien = document.createElement("a");
+                    lien.href = clipInfo.url;
+                    lien.textContent = clipInfo.title;
+                    lien.target = "_blank"; // Ouvre le lien dans un nouvel onglet
+                    celluleLien.appendChild(lien);
+
+                    //Création de la deuxième colonne avec la durée de la vidéo
+                    let celluleDuree = document.createElement("td");
+                    celluleDuree.textContent = clipInfo.duration + " secondes";
+
+                    //Ajout des deux cellules à la ligne
+                    ligne.appendChild(celluleLien);
+                    ligne.appendChild(celluleDuree);
+                    ligne.classList.add("ligne_tableau");
+
+                    //Ajout de la ligne au tableau.
+                    tcorps.appendChild(ligne);
+
+                    //Mise à jour de la  valeur du temps 
+                    tempsPerdu += clipInfo.duration;
+                }
+            }else {
+                let userId = await getUserId(chaine , accessToken); // Utilise le pseudo entré
+                let clipIds = await getClipIds(userId , accessToken , nbClipsSouhaite);
+                let clipsInfo = await getClipsInfo(clipIds , accessToken);
+    
+                let tcorps = view.resultatTable; // Assurez-vous que cet ID correspond à votre <tbody>
+    
+                for (let clipInfo of clipsInfo){
+                    //Création de la ligne du tableau
+                    let ligne = document.createElement("tr");
+                    
+                    //Création de la première colonne avec un lien
+                    let celluleLien = document.createElement("td");
+                    let lien = document.createElement("a");
+                    lien.href = clipInfo.url;
+                    lien.textContent = clipInfo.title;
+                    lien.target = "_blank"; // Ouvre le lien dans un nouvel onglet
+                    celluleLien.appendChild(lien);
+    
+                    //Création de la deuxième colonne avec la durée de la vidéo
+                    let celluleDuree = document.createElement("td");
+                    celluleDuree.textContent = clipInfo.duration + " secondes";
+    
+                    //Ajout des deux cellules à la ligne
+                    ligne.appendChild(celluleLien);
+                    ligne.appendChild(celluleDuree);
+                    ligne.classList.add("ligne_tableau");
+    
+                    //Ajout de la ligne au tableau.
+                    tcorps.appendChild(ligne);
+
+                    //Mise à jour de la  valeur du temps 
+                    tempsPerdu += clipInfo.duration;
+                }
+                localStorage.setItem(memoryString , JSON.stringify(clipsInfo));
+            }
+
+            console.log("fin de la boucle chaine");
+        }
+        view.rechercheDiv.classList.add("hide");
+        view.resultatDiv.classList.remove("hide");
+    }
+        
+
+    //Affichage du temps total perdu
+    let tcorps = view.resultatTable; 
+    //Création de la ligne du tableau
+    let ligne = document.createElement("tr");
+                    
+    //Création de la première colonne avec un texte
+    let celluleTexte = document.createElement("td");
+    let texte = document.createElement("p");
+    texte.textContent = "Le temps que vous avez perdu est de :";
+    celluleTexte.appendChild(texte);
+
+    //Création de la deuxième colonne avec la durée totale des clips
+    let celluleDuree = document.createElement("td");
+    celluleDuree.textContent = Math.trunc(tempsPerdu/60) + " minutes";
+
+    //Ajout des deux cellules à la ligne
+    ligne.appendChild(celluleTexte);
+    ligne.appendChild(celluleDuree);
+    ligne.classList.add("ligne_tableau");
+
+    //Ajout de la ligne au tableau.
+    tcorps.appendChild(ligne);
+});
+
+
+
+view.accueilBtn.addEventListener("click" , function() {
+    view.rechercheDiv.classList.remove("hide");
+    view.resultatDiv.classList.add("hide");
+});
