@@ -111,3 +111,26 @@ html {
 #message_attente {
   color: red;
 }
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.2); /* Couleur de fond du spinner */
+  border-top: 4px solid #fff; /* Couleur du spinner */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Assurez-vous que le spinner est centré et visible quand il doit l'être */
+.hide {
+  display: none; /* Changez 'visibility: hidden' en 'display: none' pour une meilleure gestion de l'espace */
+}
