@@ -16,7 +16,7 @@ view.rechercheBtn.addEventListener("click", async function () {
 
     let chaines;
     if (chainesSouhaitees != ""){
-        chaines = chainesSouhaitees.split(","); // Sépare les chaînes par des virgules
+        chaines = chainesSouhaitees.split(","); // Sépare les chaînes en un tableau.
     }else {
         chaines = ["Mastu","gotaga"];
     }
@@ -143,7 +143,8 @@ let favorisClickListenner = function (event) {
         
         
         if (listeFavoris == null){
-            localStorage.setItem("favoris" , [value]);
+            arrayFavoris = [value];
+            localStorage.setItem("favoris" , arrayFavoris);
         }else {
             let present = false;
             arrayFavoris = listeFavoris.split(",");
