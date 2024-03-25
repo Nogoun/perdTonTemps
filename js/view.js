@@ -9,4 +9,5 @@ const view = {
     rechercheClipsSelect : document.getElementById("recherche_temps_select"),
     resultatDiv : document.getElementById("resultat_div"),
     resultatTable : document.getElementById("resultat_clips"),
+    favorisBtn : document.getElementById("favoris_btn"),
 };
