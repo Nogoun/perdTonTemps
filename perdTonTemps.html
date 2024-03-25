@@ -7,7 +7,8 @@
   </head>
   <body id = "bodyApi">
     <header class="ApiHeader">
-      <button id="accueil_btn">Accueil</button>
+      <button id="accueil_btn" class="btn">Accueil</button>
+      <button id="favoris_btn" class="btn">Mes clips favoris</button>
     </header>
 
     <main class="ApiMain">
@@ -16,7 +17,7 @@
         <div class="recherche_sous_div">
           <label for="temps_input">Combien de temps vous voulez perdre ?</label>
           <select name="temps" id="recherche_temps_select">
-            <option value="">-- Choisissez combien de temps vous voulez perdre --</option>
+            <option value="">-- Choisissez combien de clips vous voulez voir --</option>
             <option value="15">15 clips</option>
             <option value="30">30 clips</option>
             <option value="45">45 clips</option>
@@ -28,6 +29,7 @@
           <input type="text" id="recherche_chaines_input" name="chaines_input" placeholder="Ex: Gotaga,Etoiles,..."/>
         </div>
         <button id="recherche_btn">Rechercher</button>
+        <p id="message_attente" class="hide">Veuillez patienter !!!</p>
       </div>
 
       <div id="resultat_div" class="div hide">

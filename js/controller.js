@@ -1,12 +1,15 @@
 // ### Gestion du bouton de recherche ###
 view.rechercheBtn.addEventListener("click" , async function() {
-    const chainesSouhaitees = view.recherchaines.value;
-    console.log(view.rechercheClipsSelect.value === "");
-    let nbClipsSouhaite = view.rechercheClipsSelect.value;
-    let tempsPerdu = 0;
+    view.msgAttente.classList.remove("hide"); // On affiche un message d'attente pour l'utilisateur
+    view.resultatTable.innerHTML = "";  // On met à 0 la table à chaque nouvelles recherche
+
+    // Analyse et traitement de la ou les chaînes transmises
+    const chainesSouhaitees = view.recherchaines.value; // Correspond aux chaînes saisi par l'utilisateur
+    let nbClipsSouhaite = view.rechercheClipsSelect.value;  // Correspond au nombre de clips que l'utilisateur souhaite voir
+    let tempsPerdu = 0; // Compteur pour déterminer le temps perdu par l'utilisateur
 
     if (!nbClipsSouhaite){
-        nbClipsSouhaite = 15;
+        nbClipsSouhaite = 15; // Si l'utilisateur ne choisis pas de nombre de clips par défaut ce sera 15 clips twitch.
     }
 
     if (chainesSouhaitees != ""){
@@ -43,6 +46,8 @@ view.rechercheBtn.addEventListener("click" , async function() {
                     //Ajout des deux cellules à la ligne
                     ligne.appendChild(celluleLien);
                     ligne.appendChild(celluleDuree);
+                    ligne.classList.add("ligne_tableau");
+
 
                     //Ajout de la ligne au tableau.
                     tcorps.appendChild(ligne);
@@ -77,6 +82,8 @@ view.rechercheBtn.addEventListener("click" , async function() {
                     //Ajout des deux cellules à la ligne
                     ligne.appendChild(celluleLien);
                     ligne.appendChild(celluleDuree);
+                    ligne.classList.add("ligne_tableau");
+
     
                     //Ajout de la ligne au tableau.
                     tcorps.appendChild(ligne);
