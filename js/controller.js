@@ -16,7 +16,7 @@ view.rechercheBtn.addEventListener("click", async function () {
 
     let chaines;
     if (chainesSouhaitees != ""){
-        chaines = chainesSouhaitees.split(","); // Sépare les chaînes par des virgules
+        chaines = chainesSouhaitees.split(","); // Sépare les chaînes en un tableau.
     }else {
         chaines = ["Mastu","gotaga"];
     }
@@ -191,4 +191,50 @@ let favorisClickListenner = function(event) {
             event.target.textContent = "+";
         }
     }
+}
+
+let favorisClickListenner = function (event) {
+    const value = event.target.value;
+    
+    
+    if (event.target.textContent == "+"){
+        let listeFavoris = localStorage.getItem("favoris");
+        
+        
+        if (listeFavoris == null){
+            arrayFavoris = [value];
+            localStorage.setItem("favoris" , arrayFavoris);
+        }else {
+            let present = false;
+            arrayFavoris = listeFavoris.split(",");
+            for (favori of arrayFavoris){
+                
+                if (favori == value){
+                    present = true;
+                }
+            }
+            if (!present){
+                arrayFavoris.push(value);
+                localStorage.setItem("favoris" , arrayFavoris);
+            }
+
+        }
+        event.target.textContent = "x";
+    }else {
+        let listeFavoris = localStorage.getItem("favoris");
+        arrayFavoris = listeFavoris.split(",");
+        let compteur = 0;
+        for (favoris of arrayFavoris){
+            if (value == favoris){
+                console.log(arrayFavoris);
+                arrayFavoris.splice(compteur , 1);
+            }
+            compteur += 1;
+        }
+        localStorage.setItem("favoris" , arrayFavoris);
+
+
+        event.target.textContent = "+";
+    }
+    
 }
