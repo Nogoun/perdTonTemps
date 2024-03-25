@@ -86,6 +86,11 @@ view.rechercheBtn.addEventListener("click", async function () {
     view.resultatDiv.classList.remove("hide");
 });
 
+view.favorisBtn.addEventListener("click", function() {
+    afficherFavoris();
+});
+
+
 /**
  * Prends en paramètre le lien d'un clip , le titre du clip et le temps du clip.
  * Renvoie une ligne qui est composé d'un lien qui a pour texte le titre du clip et dans une autre colonne la durée de la vidéo
@@ -123,6 +128,35 @@ function creationLigne(href , textContent1 , textContent2){
     return ligne;
 }
 
+function afficherFavoris() {
+    console.log("Affichage des favoris");
+    let favorisString = localStorage.getItem('favoris');
+    let favoris = favorisString ? favorisString.split(",").filter(Boolean) : []; // Sépare la chaîne en un tableau et filtre les valeurs vides
+    view.resultatTable.innerHTML = ""; // Nettoie la table des résultats précédents
+
+    if (favoris.length === 0) {
+        view.resultatTable.innerHTML = "<tr><td>Aucun favori sauvegardé</td></tr>";
+    } else {
+        for (let favUrl of favoris) {
+            let ligne = document.createElement("tr");
+            let celluleLien = document.createElement("td");
+            let lien = document.createElement("a");
+            lien.href = favUrl;
+            lien.textContent = favUrl; // Affiche l'URL comme texte du lien pour plus de clarté
+            lien.target = "_blank";
+            celluleLien.appendChild(lien);
+            ligne.appendChild(celluleLien);
+            view.resultatTable.appendChild(ligne);
+        }
+    }
+
+    view.rechercheDiv.classList.add("hide");
+    view.resultatDiv.classList.remove("hide");
+    console.log("Fin de l'affichage des favoris");
+}
+
+
+
 view.accueilBtn.addEventListener("click" , function() {
     view.rechercheDiv.classList.remove("hide");
     view.resultatDiv.classList.add("hide");
@@ -134,47 +168,27 @@ view.accueilBtn.addEventListener("click" , function() {
      * Si c'est un "+" cela signifie que le lien n'a pas été ajouté aux favoris
      * Si c'est un "x" cela signifie que le lien est présent dans les favoris
 */
-let favorisClickListenner = function (event) {
-    const value = event.target.value;
-    
-    
-    if (event.target.textContent == "+"){
-        let listeFavoris = localStorage.getItem("favoris");
-        
-        
-        if (listeFavoris == null){
-            localStorage.setItem("favoris" , [value]);
-        }else {
-            let present = false;
-            arrayFavoris = listeFavoris.split(",");
-            for (favori of arrayFavoris){
-                
-                if (favori == value){
-                    present = true;
-                }
-            }
-            if (!present){
-                arrayFavoris.push(value);
-                localStorage.setItem("favoris" , arrayFavoris);
-            }
+let favorisClickListenner = function(event) {
+    const value = event.target.value; // L'URL du clip
+    let listeFavoris = localStorage.getItem("favoris");
+    // Utilise filter(Boolean) pour éliminer les entrées vides dues à des virgules initiales ou finales
+    let arrayFavoris = listeFavoris ? listeFavoris.split(",").filter(Boolean) : []; 
 
+    if (event.target.textContent === "+") {
+        // Ajouter aux favoris
+        if (!arrayFavoris.includes(value)) {
+            arrayFavoris.push(value);
+            // Convertit le tableau en chaîne JSON avant de le sauvegarder
+            localStorage.setItem("favoris", JSON.stringify(arrayFavoris));
+            event.target.textContent = "x";
         }
-        event.target.textContent = "x";
-    }else {
-        let listeFavoris = localStorage.getItem("favoris");
-        arrayFavoris = listeFavoris.split(",");
-        let compteur = 0;
-        for (favoris of arrayFavoris){
-            if (value == favoris){
-                console.log(arrayFavoris);
-                arrayFavoris.splice(compteur , 1);
-            }
-            compteur += 1;
+    } else {
+        // Retirer des favoris
+        if (index > -1) {
+            arrayFavoris.splice(index, 1);
+            // Convertit le tableau mis à jour en chaîne JSON avant de le sauvegarder
+            localStorage.setItem("favoris", JSON.stringify(arrayFavoris));
+            event.target.textContent = "+";
         }
-        localStorage.setItem("favoris" , arrayFavoris);
-
-
-        event.target.textContent = "+";
     }
-    
 }
