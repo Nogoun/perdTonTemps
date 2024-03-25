@@ -193,48 +193,26 @@ let favorisClickListenner = function(event) {
     }
 }
 
-let favorisClickListenner = function (event) {
-    const value = event.target.value;
-    
-    
-    if (event.target.textContent == "+"){
-        let listeFavoris = localStorage.getItem("favoris");
-        
-        
-        if (listeFavoris == null){
-            arrayFavoris = [value];
-            localStorage.setItem("favoris" , arrayFavoris);
-        }else {
-            let present = false;
-            arrayFavoris = listeFavoris.split(",");
-            for (favori of arrayFavoris){
-                
-                if (favori == value){
-                    present = true;
-                }
-            }
-            if (!present){
-                arrayFavoris.push(value);
-                localStorage.setItem("favoris" , arrayFavoris);
-            }
+let favorisClickListenner = function(event) {
+    const value = event.target.value; // L'URL du clip
+    let listeFavoris = localStorage.getItem("favoris");
+    // Utilise filter(Boolean) pour éliminer les entrées vides dues à des virgules initiales ou finales
+    let arrayFavoris = listeFavoris ? listeFavoris.split(",").filter(Boolean) : []; 
 
+    if (event.target.textContent === "+") {
+        // Ajouter aux favoris si pas déjà présent
+        if (!arrayFavoris.includes(value)) {
+            arrayFavoris.push(value);
+            localStorage.setItem("favoris", arrayFavoris.join(",")); // Sauvegarde en convertissant le tableau en chaîne
+            event.target.textContent = "x"; // Changez le bouton pour indiquer que l'élément est maintenant un favori
         }
-        event.target.textContent = "x";
-    }else {
-        let listeFavoris = localStorage.getItem("favoris");
-        arrayFavoris = listeFavoris.split(",");
-        let compteur = 0;
-        for (favoris of arrayFavoris){
-            if (value == favoris){
-                console.log(arrayFavoris);
-                arrayFavoris.splice(compteur , 1);
-            }
-            compteur += 1;
+    } else {
+        // Retirer des favoris
+        const index = arrayFavoris.indexOf(value);
+        if (index > -1) {
+            arrayFavoris.splice(index, 1); // Retire l'URL du tableau
+            localStorage.setItem("favoris", arrayFavoris.join(",")); // Sauvegarde les changements
+            event.target.textContent = "+"; // Changez le bouton pour indiquer que l'élément peut être ajouté aux favoris
         }
-        localStorage.setItem("favoris" , arrayFavoris);
-
-
-        event.target.textContent = "+";
     }
-    
 }
