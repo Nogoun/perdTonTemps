@@ -193,26 +193,4 @@ let favorisClickListenner = function(event) {
     }
 }
 
-let favorisClickListenner = function(event) {
-    const value = event.target.value; // L'URL du clip
-    let listeFavoris = localStorage.getItem("favoris");
-    // Utilise filter(Boolean) pour éliminer les entrées vides dues à des virgules initiales ou finales
-    let arrayFavoris = listeFavoris ? listeFavoris.split(",").filter(Boolean) : []; 
 
-    if (event.target.textContent === "+") {
-        // Ajouter aux favoris si pas déjà présent
-        if (!arrayFavoris.includes(value)) {
-            arrayFavoris.push(value);
-            localStorage.setItem("favoris", arrayFavoris.join(",")); // Sauvegarde en convertissant le tableau en chaîne
-            event.target.textContent = "x"; // Changez le bouton pour indiquer que l'élément est maintenant un favori
-        }
-    } else {
-        // Retirer des favoris
-        const index = arrayFavoris.indexOf(value);
-        if (index > -1) {
-            arrayFavoris.splice(index, 1); // Retire l'URL du tableau
-            localStorage.setItem("favoris", arrayFavoris.join(",")); // Sauvegarde les changements
-            event.target.textContent = "+"; // Changez le bouton pour indiquer que l'élément peut être ajouté aux favoris
-        }
-    }
-}
