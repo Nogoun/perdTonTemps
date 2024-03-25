@@ -129,9 +129,12 @@
       transform: rotate(360deg);
     }
   }
-  
-  /* Assurez-vous que le spinner est centré et visible quand il doit l'être */
   .hide {
     display: none; /* Changez 'visibility: hidden' en 'display: none' pour une meilleure gestion de l'espace */
+  }
+
+  .favoris_btn{
+    color: black;
+    font-size: 1em;
   }
   
