@@ -30,6 +30,13 @@ html {
   width: 100%;
 }
 
+/* Retirer la couleur bleue par défaut des liens et utiliser la couleur du texte par défaut */
+a {
+  color: inherit; /* La couleur du lien sera la même que le texte environnant */
+  text-decoration: none; /* Enlève aussi le soulignement du lien si désiré */
+}
+
+
 .btn {
   background-color: transparent;
   border-color: transparent;
@@ -130,6 +137,7 @@ html {
   100% {
     transform: rotate(360deg);
   }
+}
   
   body {
     display: flex;
@@ -237,6 +245,7 @@ html {
     height: 40px;
     animation: spin 1s linear infinite;
   }
+
   
   @keyframes spin {
     0% {
