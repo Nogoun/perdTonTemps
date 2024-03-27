@@ -131,7 +131,7 @@ function creationLigne(href , textContent1 , textContent2){
 function afficherFavoris() {
     console.log("Affichage des favoris");
     let favorisString = localStorage.getItem('favoris');
-    let favoris = favorisString ? favorisString.split(",").filter(Boolean) : []; // Sépare la chaîne en un tableau et filtre les valeurs vides
+    let favoris = favorisString ? JSON.parse(favorisString) : [];
     view.resultatTable.innerHTML = ""; // Nettoie la table des résultats précédents
 
     if (favoris.length === 0) {
@@ -157,6 +157,7 @@ function afficherFavoris() {
 
 
 
+
 view.accueilBtn.addEventListener("click" , function() {
     view.rechercheDiv.classList.remove("hide");
     view.resultatDiv.classList.add("hide");
@@ -171,26 +172,25 @@ view.accueilBtn.addEventListener("click" , function() {
 let favorisClickListenner = function(event) {
     const value = event.target.value; // L'URL du clip
     let listeFavoris = localStorage.getItem("favoris");
-    // Utilise filter(Boolean) pour éliminer les entrées vides dues à des virgules initiales ou finales
-    let arrayFavoris = listeFavoris ? listeFavoris.split(",").filter(Boolean) : []; 
+    let arrayFavoris = listeFavoris ? JSON.parse(listeFavoris) : []; // Assurez-vous de parser le JSON une fois
 
     if (event.target.textContent === "+") {
-        // Ajouter aux favoris
+        // Ajouter aux favoris si pas déjà présent
         if (!arrayFavoris.includes(value)) {
             arrayFavoris.push(value);
-            // Convertit le tableau en chaîne JSON avant de le sauvegarder
-            localStorage.setItem("favoris", JSON.stringify(arrayFavoris));
-            event.target.textContent = "x";
+            localStorage.setItem("favoris", JSON.stringify(arrayFavoris)); // Sauvegarde la liste des favoris
+            event.target.textContent = "x"; // Change le bouton pour indiquer que l'élément est maintenant un favori
         }
     } else {
         // Retirer des favoris
+        const index = arrayFavoris.indexOf(value);
         if (index > -1) {
-            arrayFavoris.splice(index, 1);
-            // Convertit le tableau mis à jour en chaîne JSON avant de le sauvegarder
-            localStorage.setItem("favoris", JSON.stringify(arrayFavoris));
-            event.target.textContent = "+";
+            arrayFavoris.splice(index, 1); // Retire l'URL du tableau
+            localStorage.setItem("favoris", JSON.stringify(arrayFavoris)); // Sauvegarde les changements
+            event.target.textContent = "+"; // Change le bouton pour indiquer que l'élément peut être ajouté aux favoris
         }
     }
 }
+
 
 
