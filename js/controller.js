@@ -134,12 +134,18 @@ function afficherFavoris() {
     let favoris = favorisString ? JSON.parse(favorisString) : [];
     view.resultatTable.innerHTML = ""; // Nettoie la table des résultats précédents
 
+    // Mettez à jour les en-têtes de la table pour les favoris
+    let headerRow = view.resultatTable.closest('table').querySelector('thead tr');
+    headerRow.innerHTML = "<th scope='col'>Lien des clips</th>"; // Retirez la colonne de la durée
+    
+
     if (favoris.length === 0) {
         view.resultatTable.innerHTML = "<tr><td>Aucun favori sauvegardé</td></tr>";
     } else {
         for (let favUrl of favoris) {
             let ligne = document.createElement("tr");
             let celluleLien = document.createElement("td");
+            celluleLien.colSpan = "2"; // Fait prendre à la cellule toute la largeur
             let lien = document.createElement("a");
             lien.href = favUrl;
             lien.textContent = favUrl; // Affiche l'URL comme texte du lien pour plus de clarté
